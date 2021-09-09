@@ -1,0 +1,100 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
+             x:Class="MauiReddit.Pages.PostListPage"
+             BackgroundColor="{StaticResource PageBackgroundColor}">
+
+    <Grid>
+
+        <ListView HasUnevenRows="True"
+                  IsRefreshing="{Binding IsLoading}"
+                  ItemsSource="{Binding Posts}"
+                  ItemTapped="PostListView_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <VerticalStackLayout 
+                                  Padding="20">
+
+                                        <VerticalStackLayout 
+                                                     Padding="0,20,0,0"
+                                                     Spacing="20">
+
+                                            <!--  Article image  -->
+                                            <Image Aspect="AspectFill"
+                                                   HeightRequest="150"
+                                                   Source="{Binding ThumbnailUri}"
+                                                   VerticalOptions="StartAndExpand" />
+
+                                            <!--  Article Title  -->
+                                            <Label HeightRequest="40"
+                                                   Text="{Binding Title}"
+                                                   TextColor="White"
+                                                   VerticalOptions="FillAndExpand" />
+
+                                        </VerticalStackLayout>
+
+                                <HorizontalStackLayout Padding="0,10,0,0"
+                                                       Spacing="0"
+                                                       VerticalOptions="End">
+
+                                    <!--  Article section  -->
+                                    <Label FontAttributes="Bold"
+                                                   FontSize="14"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding Subreddit}"
+                                                   TextColor="Gray" />
+
+                                    <!--  Article date  -->
+                                    <Label FontSize="14"
+                                                   Margin="8,0,0,0"
+                                                   HorizontalOptions="End"
+                                                   LineBreakMode="TailTruncation"
+                                                   Text="{Binding DateCreated,
+                                                                  Converter={StaticResource DateTimeConverter}}"
+                                                   TextColor="White" />
+
+                                    <!--  Likes  -->
+                                    <Label FontSize="14"
+                                                   Margin="8,0,0,0"
+                                                   FontFamily="FontAwesome"
+                                                   HorizontalOptions="End"
+                                                   Text="&#xf164; "
+                                                   TextColor="{StaticResource AccentColor}"
+                                                   TranslationX="0"
+                                                   TranslationY="2" />
+
+                                    <Label FontSize="14"
+                                           HorizontalOptions="End"
+                                           LineBreakMode="TailTruncation"
+                                           Text="{Binding Likes}"
+                                           TextColor="{StaticResource AccentColor}" />
+
+                                    <!--  Comments  -->
+                                    <Label FontSize="14"
+                                                   Margin="8,0,0,0"
+                                                   FontFamily="FontAwesome"
+                                                   HorizontalOptions="End"
+                                                   Text="&#xf086; "
+                                                   TextColor="{StaticResource AccentColor}"
+                                                   TranslationY="2" />
+
+                                    <Label FontSize="14"
+                                           HorizontalOptions="End"
+                                           LineBreakMode="TailTruncation"
+                                           Text="{Binding CommentsCount}"
+                                           TextColor="{StaticResource AccentColor}"
+                                           TranslationX="0" />
+                                </HorizontalStackLayout>
+
+                            </VerticalStackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

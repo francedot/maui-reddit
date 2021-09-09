@@ -1,0 +1,93 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiReddit.Pages.PostDetailPage"
+             BackgroundColor="{DynamicResource PageBackgroundColor}">
+
+    <ScrollView BackgroundColor="{StaticResource PageBackgroundColor}">
+        <Grid>
+            <Image Aspect="AspectFill"
+                   HeightRequest="320"
+                   HorizontalOptions="FillAndExpand"
+                   Opacity="0.8"
+                   Source="{Binding Post.ThumbnailUri}"
+                   VerticalOptions="StartAndExpand" />
+            
+            <VerticalStackLayout>
+                <VerticalStackLayout>
+                    
+                    <VerticalStackLayout HeightRequest="260"
+                                         Padding="20">
+                        <Label FontAttributes="None"
+                               FontSize="35"
+                               HeightRequest="88"
+                               LineBreakMode="WordWrap"
+                               Text="{Binding Post.Title}"
+                               TextColor="White"
+                               VerticalOptions="EndAndExpand"
+                               VerticalTextAlignment="Start" />
+                        <Label HorizontalOptions="End"
+                                   Text="{Binding Post.Author,
+                                                  StringFormat='By {0:F0}'}"
+                                   TextColor="White"
+                                   VerticalOptions="End" />
+                    </VerticalStackLayout>
+                    
+                    <HorizontalStackLayout BackgroundColor="Black"
+                                 Padding="20">
+                        <Label HorizontalOptions="StartAndExpand"
+                               Text="{Binding Post.Subreddit}"
+                               TextColor="White" />
+                        <Label Margin="8,0,0,0" HorizontalOptions="StartAndExpand"
+                               Text="{Binding Post.DateCreated, Converter={StaticResource DateTimeConverter}}"
+                               TextColor="#8c8c8c" />
+                        
+                        <HorizontalStackLayout Margin="8,0,0,0" HorizontalOptions="StartAndExpand">
+                            <Label FontSize="16"
+                                   FontFamily="FontAwesome"
+                                   Text="&#xf164;"
+                                   TextColor="{StaticResource AccentColor}"
+                                   TranslationY="2"
+                                   TranslationX="-3" />
+                            <Label FontSize="16"
+                                   Text="{Binding Post.Likes}"
+                                   TextColor="{StaticResource AccentColor}" />
+                        </HorizontalStackLayout>
+                        
+                        <HorizontalStackLayout Margin="8,0,0,0" HorizontalOptions="StartAndExpand">
+                            <Label FontSize="16"
+                                   FontFamily="FontAwesome"
+                                   Text="&#xf086; "
+                                   TextColor="{StaticResource AccentColor}"
+                                   TranslationY="2"
+                                   TranslationX="0" />
+                            <Label FontSize="16"
+                                   Text="{Binding Post.CommentsCount}"
+                                   TextColor="{StaticResource AccentColor}" />
+                        </HorizontalStackLayout>
+                    </HorizontalStackLayout>
+                    
+                    <BoxView BackgroundColor="#333337" HeightRequest="1" />
+                    
+                    <VerticalStackLayout Padding="20">
+                        <Label Text="{Binding Post.Content}"
+                               TextColor="White"
+                               VerticalOptions="EndAndExpand" />
+                    </VerticalStackLayout>
+                    
+                    <BoxView BackgroundColor="#333337" HeightRequest="1" />
+                </VerticalStackLayout>
+                
+                <!--  COMMENTS  -->
+                <Grid Padding="20">
+                    <ActivityIndicator HeightRequest="50" WidthRequest="50" HorizontalOptions="Center" IsRunning="true" IsVisible="{Binding IsLoading}"/>
+                    <Label BindingContext="{Binding Comments}"
+                           HorizontalOptions="StartAndExpand"
+                           Text="{Binding Count,
+                                          StringFormat='{0:F0} COMMENTS'}"
+                           TextColor="White"
+                           VerticalOptions="Start" />
+                </Grid>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
